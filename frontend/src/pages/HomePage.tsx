@@ -1,6 +1,3 @@
-import landingImage from "../assets/landing.png";
-import appDownloadImage from "../assets/appDownload.png";
-
 const HomePage = () => {
   return (
     <div className="flex flex-col gap-12">
@@ -13,7 +10,7 @@ const HomePage = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-5">
-        <img src={landingImage} alt="landing" />
+        <img src={"/landing.png"} alt="landing" />
 
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <span className="font-bold text-3xl tracking-tight">
@@ -25,7 +22,7 @@ const HomePage = () => {
             recommendations.
           </span>
 
-          <img src={appDownloadImage} alt="app download" />
+          <img src={"/appDownload.png"} alt="app download" />
         </div>
       </div>
     </div>
