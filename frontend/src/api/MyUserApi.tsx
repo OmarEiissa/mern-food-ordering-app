@@ -1,6 +1,6 @@
 import type { User } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -93,6 +93,7 @@ type UpdateMyUserRequest = {
 
 export const useUpdateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
+  const queryClient = useQueryClient();
 
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
     const accessToken = await getAccessTokenSilently();
@@ -114,16 +115,15 @@ export const useUpdateMyUser = () => {
   const {
     mutateAsync: updateUser,
     isPending: isLoading,
-    isSuccess,
     error,
     reset,
   } = useMutation({
     mutationFn: updateMyUserRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchCurrentUser"] });
+      toast.success("User profile updated!");
+    },
   });
-
-  if (isSuccess) {
-    toast.success("User profile updated!");
-  }
 
   if (error) {
     toast.error(error.toString());
