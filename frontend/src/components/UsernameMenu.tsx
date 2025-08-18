@@ -20,7 +20,7 @@ const UsernameMenu = () => {
   return (
     <div>
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-        {!isGetLoading && (
+        {!isGetLoading && currentUser && (
           <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-orange-500 gap-2 cursor-pointer">
             <CircleUserRound className="text-orange-500" />
             {currentUser?.name || user?.email}
