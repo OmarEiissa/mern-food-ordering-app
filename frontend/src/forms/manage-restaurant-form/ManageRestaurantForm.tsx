@@ -1,6 +1,6 @@
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type UseFormProps } from "react-hook-form";
 import { z } from "zod";
 import DetailsSection from "./DetailsSection";
 import { Separator } from "@/components/ui/separator";
@@ -62,7 +62,7 @@ const ManageRestaurantForm = ({ restaurant, onSave, isLoading }: Props) => {
       cuisines: [],
       menuItems: [{ name: "", price: 0 }],
     },
-  });
+  } as UseFormProps<RestaurantFormData>);
 
   useEffect(() => {
     if (!restaurant) return;
