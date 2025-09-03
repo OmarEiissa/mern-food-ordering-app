@@ -1,6 +1,6 @@
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import DetailsSection from "./DetailsSection";
 import { Separator } from "@/components/ui/separator";
@@ -22,17 +22,11 @@ const formSchema = z
 
     deliveryPrice: z.coerce
       .number()
-      .transform((val) => val as number)
-      .refine((val) => val >= 0, {
-        message: "Delivery price must be a positive number",
-      }),
+      .min(0, "Delivery price must be a positive number"),
 
     estimatedDeliveryTime: z.coerce
       .number()
-      .transform((val) => val as number)
-      .refine((val) => val >= 1, {
-        message: "Estimated delivery time is required",
-      }),
+      .min(1, "Estimated delivery time is required"),
 
     cuisines: z
       .array(z.string())
@@ -62,7 +56,7 @@ type Props = {
 };
 
 const ManageRestaurantForm = ({ restaurant, onSave, isLoading }: Props) => {
-  const form = useForm<RestaurantFormData, any, RestaurantFormData>({
+  const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       restaurantName: "",
@@ -72,7 +66,7 @@ const ManageRestaurantForm = ({ restaurant, onSave, isLoading }: Props) => {
       estimatedDeliveryTime: 0,
       cuisines: [],
       menuItems: [{ name: "", price: 0 }],
-      imageFile: undefined,
+      imageFile: undefined as unknown as File,
     },
   });
 
@@ -97,7 +91,7 @@ const ManageRestaurantForm = ({ restaurant, onSave, isLoading }: Props) => {
     form.reset(updatedRestaurant);
   }, [restaurant, form]);
 
-  const onSubmit: SubmitHandler<RestaurantFormData> = (formDataJson) => {
+  const onSubmit = (formDataJson: RestaurantFormData) => {
     const formData = new FormData();
 
     formData.append("restaurantName", formDataJson.restaurantName);
