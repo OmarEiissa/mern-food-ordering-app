@@ -17,10 +17,17 @@ const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
 const mongoose_1 = __importDefault(require("mongoose"));
 const MyUser_route_1 = __importDefault(require("./routes/MyUser.route"));
+const MyRestaurant_route_1 = __importDefault(require("./routes/MyRestaurant.route"));
+const cloudinary_1 = require("cloudinary");
 mongoose_1.default
     .connect(process.env.MONGODB_CONNECTION_STRING)
     .then(() => console.log("Connected to database! ✅"))
     .catch((err) => console.error(`Error connecting to database: ${err} ❌`));
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 const PORT = process.env.PORT || 5000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -33,6 +40,7 @@ app.get("/health", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 }));
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.json({ message: "Hello World!" }); }));
 app.use("/api/my/user", MyUser_route_1.default);
+app.use("/api/my/restaurant", MyRestaurant_route_1.default);
 app.listen(PORT, () => {
     console.log(`Server started on http://localhost:${PORT} ✅`);
 });
