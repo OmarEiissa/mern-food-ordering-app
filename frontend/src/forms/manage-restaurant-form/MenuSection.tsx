@@ -40,7 +40,7 @@ const MenuSection = () => {
 
       <Button
         type="button"
-        onClick={() => append({ name: "", price: 0 })}
+        onClick={() => append({ name: "", price: "" })}
         className="cursor-pointer"
       >
         Add Menu Item
