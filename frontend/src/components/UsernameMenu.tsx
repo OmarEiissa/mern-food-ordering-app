@@ -28,7 +28,7 @@ const UsernameMenu = () => {
         )}
 
         <DropdownMenuContent>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link
               to="/manage-restaurant"
               className="font-bold hover:text-orange-500"
@@ -38,7 +38,7 @@ const UsernameMenu = () => {
             </Link>
           </DropdownMenuItem>
 
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link
               to="/user-profile"
               className="font-bold hover:text-orange-500"
