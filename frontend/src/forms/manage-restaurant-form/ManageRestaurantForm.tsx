@@ -20,11 +20,11 @@ const formSchema = z
 
     country: z.string().min(1, "Country is required"),
 
-    deliveryPrice: z.coerce
+    deliveryPrice: z
       .number()
       .min(0, "Delivery price must be a positive number"),
 
-    estimatedDeliveryTime: z.coerce
+    estimatedDeliveryTime: z
       .number()
       .min(1, "Estimated delivery time is required"),
 
@@ -35,7 +35,7 @@ const formSchema = z
     menuItems: z.array(
       z.object({
         name: z.string().min(1, "Menu item name is required"),
-        price: z.coerce.number().min(1, "Price is required"),
+        price: z.number().min(1, "Price is required"),
       })
     ),
 
