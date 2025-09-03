@@ -22,11 +22,17 @@ const formSchema = z
 
     deliveryPrice: z.coerce
       .number()
-      .pipe(z.number().min(0, "Delivery price must be a positive number")),
+      .transform((val) => val as number)
+      .refine((val) => val >= 0, {
+        message: "Delivery price must be a positive number",
+      }),
 
     estimatedDeliveryTime: z.coerce
       .number()
-      .pipe(z.number().min(1, "Estimated delivery time is required")),
+      .transform((val) => val as number)
+      .refine((val) => val >= 1, {
+        message: "Estimated delivery time is required",
+      }),
 
     cuisines: z
       .array(z.string())
@@ -56,7 +62,7 @@ type Props = {
 };
 
 const ManageRestaurantForm = ({ restaurant, onSave, isLoading }: Props) => {
-  const form = useForm<RestaurantFormData>({
+  const form = useForm<RestaurantFormData, any, RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       restaurantName: "",
@@ -66,7 +72,7 @@ const ManageRestaurantForm = ({ restaurant, onSave, isLoading }: Props) => {
       estimatedDeliveryTime: 0,
       cuisines: [],
       menuItems: [{ name: "", price: 0 }],
-      imageFile: undefined as unknown as File,
+      imageFile: undefined,
     },
   });
 
