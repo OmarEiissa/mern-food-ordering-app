@@ -62,6 +62,16 @@ export const updateMyRestaurant = async (req: Request, res: Response) => {
     restaurant.lastUpdated = new Date();
 
     if (req.file) {
+      if (restaurant.imageUrl) {
+        const parts = restaurant.imageUrl.split("/");
+        const publicId = parts
+          .slice(parts.indexOf("food-ordering-app"))
+          .join("/")
+          .replace(/\.[^/.]+$/, "");
+
+        await cloudinary.v2.uploader.destroy(publicId);
+      }
+
       const imageUrl = await uploadImage(req as Request);
       restaurant.imageUrl = imageUrl;
     }
