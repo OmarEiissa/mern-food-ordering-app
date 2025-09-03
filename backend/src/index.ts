@@ -2,13 +2,20 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
-
 import myUserRouter from "./routes/MyUser.route";
+import myRestaurantRouter from "./routes/MyRestaurant.route";
+import { v2 as cloudinary } from "cloudinary";
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
   .then(() => console.log("Connected to database! ✅"))
   .catch((err) => console.error(`Error connecting to database: ${err} ❌`));
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const PORT = process.env.PORT || 5000;
 
@@ -30,6 +37,7 @@ app.get("/", async (req: Request, res: Response) =>
 );
 
 app.use("/api/my/user", myUserRouter);
+app.use("/api/my/restaurant", myRestaurantRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT} ✅`);

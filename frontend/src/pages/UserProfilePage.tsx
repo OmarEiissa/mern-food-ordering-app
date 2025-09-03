@@ -1,7 +1,7 @@
 import { useGetMyUser, useUpdateMyUser } from "@/api/MyUserApi";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
 
-const USerProfilePage = () => {
+const UserProfilePage = () => {
   const { currentUser, isLoading: isGetLoading } = useGetMyUser();
   const { updateUser, isLoading: isUpdateLoading } = useUpdateMyUser();
 
@@ -22,4 +22,4 @@ const USerProfilePage = () => {
   );
 };
 
-export default USerProfilePage;
+export default UserProfilePage;

@@ -2,8 +2,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/layout";
 import HomePage from "./pages/HomePage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
-import USerProfilePage from "./pages/UserProfilePage";
+import UserProfilePage from "./pages/UserProfilePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import ManageRestaurantPage from "./pages/ManageRestaurantPage";
 
 const AppRouters = () => {
   return (
@@ -24,7 +25,16 @@ const AppRouters = () => {
           path="/user-profile"
           element={
             <Layout>
-              <USerProfilePage />
+              <UserProfilePage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/manage-restaurant"
+          element={
+            <Layout>
+              <ManageRestaurantPage />
             </Layout>
           }
         />

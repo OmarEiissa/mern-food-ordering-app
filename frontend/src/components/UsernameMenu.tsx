@@ -28,7 +28,17 @@ const UsernameMenu = () => {
         )}
 
         <DropdownMenuContent>
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              to="/manage-restaurant"
+              className="font-bold hover:text-orange-500"
+              onClick={() => setIsOpen(false)}
+            >
+              Manage Restaurant
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild>
             <Link
               to="/user-profile"
               className="font-bold hover:text-orange-500"
