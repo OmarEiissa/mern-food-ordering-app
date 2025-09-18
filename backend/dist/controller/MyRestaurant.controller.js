@@ -67,6 +67,14 @@ const updateMyRestaurant = (req, res) => __awaiter(void 0, void 0, void 0, funct
         restaurant.menuItems = req.body.menuItems;
         restaurant.lastUpdated = new Date();
         if (req.file) {
+            if (restaurant.imageUrl) {
+                const parts = restaurant.imageUrl.split("/");
+                const publicId = parts
+                    .slice(parts.indexOf("food-ordering-app"))
+                    .join("/")
+                    .replace(/\.[^/.]+$/, "");
+                yield cloudinary_1.default.v2.uploader.destroy(publicId);
+            }
             const imageUrl = yield uploadImage(req);
             restaurant.imageUrl = imageUrl;
         }

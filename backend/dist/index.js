@@ -18,6 +18,7 @@ require("dotenv/config");
 const mongoose_1 = __importDefault(require("mongoose"));
 const MyUser_route_1 = __importDefault(require("./routes/MyUser.route"));
 const MyRestaurant_route_1 = __importDefault(require("./routes/MyRestaurant.route"));
+const Restaurant_route_1 = __importDefault(require("./routes/Restaurant.route"));
 const cloudinary_1 = require("cloudinary");
 mongoose_1.default
     .connect(process.env.MONGODB_CONNECTION_STRING)
@@ -41,6 +42,7 @@ app.get("/health", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () { return res.json({ message: "Hello World!" }); }));
 app.use("/api/my/user", MyUser_route_1.default);
 app.use("/api/my/restaurant", MyRestaurant_route_1.default);
+app.use("/api/restaurant", Restaurant_route_1.default);
 app.listen(PORT, () => {
     console.log(`Server started on http://localhost:${PORT} ✅`);
 });
