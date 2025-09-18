@@ -14,17 +14,15 @@ import { useState } from "react";
 import { useGetMyUser } from "@/api/MyUserApi";
 
 const MobileNav = () => {
-  const { currentUser, isLoading: isGetLoading } = useGetMyUser();
+  const { currentUser } = useGetMyUser();
   const { isAuthenticated, loginWithRedirect, user } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      {!isGetLoading && currentUser && (
-        <SheetTrigger className="cursor-pointer">
-          <Menu className="text-orange-500" />
-        </SheetTrigger>
-      )}
+      <SheetTrigger className="cursor-pointer">
+        <Menu className="text-orange-500" />
+      </SheetTrigger>
 
       <SheetContent className="space-y-3 p-4">
         <SheetTitle>

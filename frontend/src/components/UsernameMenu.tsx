@@ -13,14 +13,14 @@ import { useState } from "react";
 import { useGetMyUser } from "@/api/MyUserApi";
 
 const UsernameMenu = () => {
-  const { currentUser, isLoading: isGetLoading } = useGetMyUser();
+  const { currentUser } = useGetMyUser();
   const { user, logout } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-        {!isGetLoading && currentUser && (
+        {currentUser && (
           <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-orange-500 gap-2 cursor-pointer">
             <CircleUserRound className="text-orange-500" />
             {currentUser?.name || user?.email}
